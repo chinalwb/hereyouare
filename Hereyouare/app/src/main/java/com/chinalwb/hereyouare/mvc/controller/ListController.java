@@ -1,17 +1,17 @@
-package com.chinalwb.hereyouare.mvc.list.controller;
-
-import android.os.Handler;
-import android.os.Looper;
+package com.chinalwb.hereyouare.mvc.controller;
 
 import com.chinalwb.hereyouare.common.BackgroundThreadPoster;
 import com.chinalwb.hereyouare.common.MainThreadPoster;
-import com.chinalwb.hereyouare.mvc.list.ListFragment;
+import com.chinalwb.hereyouare.mvc.ListFragment;
+import com.chinalwb.hereyouare.mvp.model.ListModel;
 
 public class ListController {
 
+    private ListModel mListModel;
     private ListFragment mListFragment;
 
-    public ListController(ListFragment listFragment) {
+    public ListController(ListModel listModel, ListFragment listFragment) {
+        mListModel = listModel;
         mListFragment = listFragment;
     }
 
@@ -20,21 +20,17 @@ public class ListController {
         BackgroundThreadPoster.post(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(5000);
-                    updateUI();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                String data = mListModel.loadList("Controller");
+                updateUI(data);
             }
         });
     }
 
-    private void updateUI() {
+    private void updateUI(final String data) {
         MainThreadPoster.post(new Runnable() {
             @Override
             public void run() {
-                mListFragment.updateList(null);
+                mListFragment.updateList(data);
             }
         });
     }

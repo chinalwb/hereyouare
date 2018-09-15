@@ -1,4 +1,4 @@
-package com.chinalwb.hereyouare.mvc.list;
+package com.chinalwb.hereyouare.mvc;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.chinalwb.hereyouare.R;
-import com.chinalwb.hereyouare.mvc.list.controller.ListController;
+import com.chinalwb.hereyouare.mvc.controller.ListController;
+import com.chinalwb.hereyouare.mvp.model.ListModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +71,7 @@ public class ListFragment extends Fragment {
         mRefreshLayout = rootView.findViewById(R.id.refresh_layout);
         mTextView = rootView.findViewById(R.id.textview_list);
         mProgressBar = rootView.findViewById(R.id.progress);
-        mListController = new ListController(this);
+        mListController = new ListController(new ListModel(), this);
 
         mRefreshLayout.setScrollUpChild(mTextView);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -82,9 +82,9 @@ public class ListFragment extends Fragment {
         });
     }
 
-    public void updateList(Object list) {
+    public void updateList(String list) {
         hideLoading();
-        mTextView.setText("Hello world! Updated");
+        mTextView.setText(list);
         Toast.makeText(getActivity(), "Update UI", Toast.LENGTH_LONG).show();
     }
 
