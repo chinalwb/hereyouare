@@ -3,18 +3,18 @@ package com.chinalwb.hereyouare.mvp.presenter;
 
 import com.chinalwb.hereyouare.common.BackgroundThreadPoster;
 import com.chinalwb.hereyouare.common.MainThreadPoster;
-import com.chinalwb.hereyouare.mvp.model.ListModel;
-import com.chinalwb.hereyouare.mvp.view.IListView;
+import com.chinalwb.hereyouare.mvp.model.UserModel;
+import com.chinalwb.hereyouare.mvp.view.IUserListView;
 
-public class ListPresenter implements IListPresenter {
+public class UserUserListPresenter implements IUserListPresenter {
 
-    private IListView mListView;
+    private IUserListView mListView;
 
-    private ListModel mListModel;
+    private UserModel mUserModel;
 
-    public ListPresenter(ListModel listModel, IListView iListView) {
-        mListModel = listModel;
-        mListView = iListView;
+    public UserUserListPresenter(UserModel userModel, IUserListView iUserListView) {
+        mUserModel = userModel;
+        mListView = iUserListView;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ListPresenter implements IListPresenter {
         BackgroundThreadPoster.post(new Runnable() {
             @Override
             public void run() {
-                String data = mListModel.loadList("Presenter");
+                String data = mUserModel.loadList("Presenter");
                 updateUI(data);
             }
         });

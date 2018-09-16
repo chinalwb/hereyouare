@@ -1,5 +1,5 @@
 package com.chinalwb.hereyouare.mvp.presenter;
 
-public interface IListPresenter {
+public interface IUserListPresenter {
     void loadList();
 }

@@ -15,9 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.chinalwb.hereyouare.mvc.ListFragment;
-import com.chinalwb.hereyouare.mvp.MVPListFragment;
-import com.chinalwb.hereyouare.mvp2.MVP2ListFragment;
+import com.chinalwb.hereyouare.mvc.MVCUserListFragment;
+import com.chinalwb.hereyouare.mvp.MVPUserListFragment;
+import com.chinalwb.hereyouare.mvp2.MVP2UserListFragment;
 import com.chinalwb.hereyouare.util.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         showFragment(MainFragment.newInstance());
-//        showFragment(ListFragment.newInstance());
-//        showFragment(MVPListFragment.newInstance());
+//        showFragment(MVCUserListFragment.newInstance());
+//        showFragment(MVPUserListFragment.newInstance());
     }
 
     private void showFragment(Fragment fragment) {
@@ -101,11 +101,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mvc) {
-            showFragment(ListFragment.newInstance());
+            showFragment(MVCUserListFragment.newInstance());
         } else if (id == R.id.nav_mvp) {
-            showFragment(MVPListFragment.newInstance());
+            showFragment(MVPUserListFragment.newInstance());
         } else if (id == R.id.nav_mvp2) {
-            showFragment(MVP2ListFragment.newInstance());
+            showFragment(MVP2UserListFragment.newInstance());
         } else if (id == R.id.nav_mvvm) {
 
         } else if (id == R.id.nav_component_share) {

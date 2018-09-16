@@ -1,8 +1,6 @@
-package com.chinalwb.hereyouare.mvp;
+package com.chinalwb.hereyouare.mvp2.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +11,8 @@ import android.widget.Toast;
 
 import com.chinalwb.hereyouare.R;
 import com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout;
-import com.chinalwb.hereyouare.mvp.model.ListModel;
-import com.chinalwb.hereyouare.mvp.presenter.IListPresenter;
-import com.chinalwb.hereyouare.mvp.presenter.ListPresenter;
-import com.chinalwb.hereyouare.mvp.view.IListView;
 
-public class MVPListFragment extends Fragment implements IListView {
+public class UserListView implements IUserListView {
 
     private ScrollChildSwipeRefreshLayout mRefreshLayout;
 
@@ -26,27 +20,20 @@ public class MVPListFragment extends Fragment implements IListView {
 
     private ProgressBar mProgressBar;
 
-    private IListPresenter mListPresenter;
+    private IListViewHandler mListViewHandler;
 
-    public MVPListFragment() {
-        super();
+    private View mRootView;
+
+    public UserListView(LayoutInflater layoutInflater, ViewGroup container) {
+        mRootView = layoutInflater.inflate(getLayoutId(), container, false);
+        init(mRootView);
     }
 
-    public static MVPListFragment newInstance() {
-        return new MVPListFragment();
+    private int getLayoutId() {
+        return R.layout.fragment_list;
     }
 
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View rootView = getFragmentView(inflater, container);
-        init(rootView);
-        return rootView;
-    }
-
-    private void init(View rootView) {
-        mListPresenter = new ListPresenter(new ListModel(), this);
+    protected void init(View rootView) {
         mRefreshLayout = rootView.findViewById(R.id.refresh_layout);
         mTextView = rootView.findViewById(R.id.textview_list);
         mProgressBar = rootView.findViewById(R.id.progress);
@@ -55,20 +42,19 @@ public class MVPListFragment extends Fragment implements IListView {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mListPresenter.loadList();
+                if (mListViewHandler != null) {
+                    mListViewHandler.onRefreshList();
+                }
             }
         });
     }
 
-    private View getFragmentView(LayoutInflater inflater, @Nullable ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_list, container, false);
-    }
 
     @Override
     public void updateList(String listData) {
         hideLoading();
         mTextView.setText(listData);
-        Toast.makeText(getActivity(), "Update UI", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Update UI", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -81,5 +67,23 @@ public class MVPListFragment extends Fragment implements IListView {
     public void hideLoading() {
         mRefreshLayout.setRefreshing(false);
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setViewHandler(IListViewHandler handler) {
+        mListViewHandler = handler;
+    }
+
+    @Override
+    public View getRootView() {
+        return mRootView;
+    }
+
+    @Override
+    public Context getContext() {
+        if (mRootView == null) {
+            return null;
+        }
+        return mRootView.getContext();
     }
 }

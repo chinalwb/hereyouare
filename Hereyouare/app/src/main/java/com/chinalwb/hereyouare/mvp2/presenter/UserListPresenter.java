@@ -2,22 +2,22 @@ package com.chinalwb.hereyouare.mvp2.presenter;
 
 import com.chinalwb.hereyouare.common.BackgroundThreadPoster;
 import com.chinalwb.hereyouare.common.MainThreadPoster;
-import com.chinalwb.hereyouare.mvp.model.ListModel;
+import com.chinalwb.hereyouare.mvp.model.UserModel;
 import com.chinalwb.hereyouare.mvp2.BasePresenter;
 
-public class MyListPresenter extends BasePresenter<MyListPresenter.ListUpdaterListener> {
+public class UserListPresenter extends BasePresenter<UserListPresenter.ListUpdaterListener> {
 
-    private ListModel mListModel;
+    private UserModel mUserModel;
 
-    public MyListPresenter() {
-        mListModel = new ListModel();
+    public UserListPresenter() {
+        mUserModel = new UserModel();
     }
 
     public void loadList() {
         BackgroundThreadPoster.post(new Runnable() {
             @Override
             public void run() {
-                String data = mListModel.loadList("MVP2");
+                String data = mUserModel.loadList("MVP2");
                 updateUI(data);
             }
         });

@@ -1,6 +1,6 @@
 package com.chinalwb.hereyouare.mvp.view;
 
-public interface IListView {
+public interface IUserListView {
 
     void updateList(String listData);
 

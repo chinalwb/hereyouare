@@ -8,35 +8,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chinalwb.hereyouare.mvp2.presenter.MyListPresenter;
-import com.chinalwb.hereyouare.mvp2.view.IListView;
-import com.chinalwb.hereyouare.mvp2.view.MyListView;
+import com.chinalwb.hereyouare.mvp2.presenter.UserListPresenter;
+import com.chinalwb.hereyouare.mvp2.view.IUserListView;
+import com.chinalwb.hereyouare.mvp2.view.UserListView;
 
-public class MVP2ListFragment extends Fragment implements IListView.IListViewHandler, MyListPresenter.ListUpdaterListener {
+public class MVP2UserListFragment extends Fragment implements IUserListView.IListViewHandler, UserListPresenter.ListUpdaterListener {
 
-    private IListView mListView;
+    private IUserListView mListView;
 
-    MyListPresenter mPresenter;
+    UserListPresenter mPresenter;
 
-    public MVP2ListFragment() {
+    public MVP2UserListFragment() {
         super();
     }
 
-    public static MVP2ListFragment newInstance() {
-        return new MVP2ListFragment();
+    public static MVP2UserListFragment newInstance() {
+        return new MVP2UserListFragment();
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new MyListPresenter();
+        mPresenter = new UserListPresenter();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mListView = new MyListView(inflater, container);
+        mListView = new UserListView(inflater, container);
         mListView.setViewHandler(this);
         return mListView.getRootView();
     }

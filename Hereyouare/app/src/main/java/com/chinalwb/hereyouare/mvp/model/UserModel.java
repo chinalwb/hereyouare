@@ -1,11 +1,11 @@
-package com.chinalwb.hereyouare.mvc.model;
+package com.chinalwb.hereyouare.mvp.model;
 
 /**
  * 读取本地数据  或  读取网络数据
  */
-public class ListModel {
+public class UserModel {
 
-    public ListModel() {
+    public UserModel() {
 
     }
 

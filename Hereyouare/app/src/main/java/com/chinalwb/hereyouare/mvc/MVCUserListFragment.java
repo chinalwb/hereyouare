@@ -11,13 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinalwb.hereyouare.R;
-import com.chinalwb.hereyouare.mvc.controller.ListController;
-import com.chinalwb.hereyouare.mvp.model.ListModel;
+import com.chinalwb.hereyouare.mvc.controller.UserListController;
+import com.chinalwb.hereyouare.mvp.model.UserModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListFragment extends Fragment {
+public class MVCUserListFragment extends Fragment {
 
     private ScrollChildSwipeRefreshLayout mRefreshLayout;
 
@@ -25,14 +25,14 @@ public class ListFragment extends Fragment {
 
     private ProgressBar mProgressBar;
 
-    private ListController mListController;
+    private UserListController mUserListController;
 
-    public ListFragment() {
+    public MVCUserListFragment() {
         // Required empty public constructor
     }
 
-    public static ListFragment newInstance() {
-        return new ListFragment();
+    public static MVCUserListFragment newInstance() {
+        return new MVCUserListFragment();
     }
 
 //    /**
@@ -41,11 +41,11 @@ public class ListFragment extends Fragment {
 //     *
 //     * @param param1 Parameter 1.
 //     * @param param2 Parameter 2.
-//     * @return A new instance of fragment ListFragment.
+//     * @return A new instance of fragment MVCUserListFragment.
 //     */
 //    // TODO: Rename and change types and number of parameters
-//    public static ListFragment newInstance(String param1, String param2) {
-//        ListFragment fragment = new ListFragment();
+//    public static MVCUserListFragment newInstance(String param1, String param2) {
+//        MVCUserListFragment fragment = new MVCUserListFragment();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
@@ -71,13 +71,13 @@ public class ListFragment extends Fragment {
         mRefreshLayout = rootView.findViewById(R.id.refresh_layout);
         mTextView = rootView.findViewById(R.id.textview_list);
         mProgressBar = rootView.findViewById(R.id.progress);
-        mListController = new ListController(new ListModel(), this);
+        mUserListController = new UserListController(new UserModel(), this);
 
         mRefreshLayout.setScrollUpChild(mTextView);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mListController.loadList();
+                mUserListController.loadList();
             }
         });
     }
