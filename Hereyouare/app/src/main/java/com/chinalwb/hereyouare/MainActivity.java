@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.chinalwb.hereyouare.mvc.ListFragment;
 import com.chinalwb.hereyouare.mvp.MVPListFragment;
+import com.chinalwb.hereyouare.mvp2.MVP2ListFragment;
 import com.chinalwb.hereyouare.util.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_mvp) {
             showFragment(MVPListFragment.newInstance());
         } else if (id == R.id.nav_mvp2) {
-
+            showFragment(MVP2ListFragment.newInstance());
         } else if (id == R.id.nav_mvvm) {
 
         } else if (id == R.id.nav_component_share) {

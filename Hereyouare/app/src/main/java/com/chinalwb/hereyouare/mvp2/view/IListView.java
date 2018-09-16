@@ -1,9 +1,11 @@
 package com.chinalwb.hereyouare.mvp2.view;
 
-public interface IListView {
+import com.chinalwb.hereyouare.mvp2.IBaseView;
+
+public interface IListView extends IBaseView {
 
     interface IListViewHandler {
-        void loadList();
+        void onRefreshList();
     }
 
     void updateList(String listData);
@@ -11,4 +13,6 @@ public interface IListView {
     void showLoading();
 
     void hideLoading();
+
+    void setViewHandler(IListViewHandler handler);
 }
