@@ -2,16 +2,19 @@ package com.chinalwb.hereyouare.mvc.controller;
 
 import com.chinalwb.hereyouare.common.BackgroundThreadPoster;
 import com.chinalwb.hereyouare.common.MainThreadPoster;
+import com.chinalwb.hereyouare.common.dataManager.UserManager;
+import com.chinalwb.hereyouare.common.model.UserModel;
 import com.chinalwb.hereyouare.mvc.MVCUserListFragment;
-import com.chinalwb.hereyouare.mvp.model.UserModel;
+
+import java.util.List;
 
 public class UserListController {
 
-    private UserModel mUserModel;
     private MVCUserListFragment mMVCUserListFragment;
 
-    public UserListController(UserModel userModel, MVCUserListFragment MVCUserListFragment) {
-        mUserModel = userModel;
+    private List<UserModel> mUserModels;
+
+    public UserListController(MVCUserListFragment MVCUserListFragment) {
         mMVCUserListFragment = MVCUserListFragment;
     }
 
@@ -20,17 +23,32 @@ public class UserListController {
         BackgroundThreadPoster.post(new Runnable() {
             @Override
             public void run() {
-                String data = mUserModel.loadList("Controller");
-                updateUI(data);
+                mUserModels = UserManager.callAPIToGetUserList();
+                updateUI(mUserModels);
             }
         });
     }
 
-    private void updateUI(final String data) {
+    public void addUser() {
+        mMVCUserListFragment.showLoading();
+        BackgroundThreadPoster.post(new Runnable() {
+            @Override
+            public void run() {
+                UserModel userModel = UserManager.addUser();
+                mUserModels.add(userModel);
+                updateUI(mUserModels);
+            }
+        });
+    }
+
+
+
+    private void updateUI(final List<UserModel> userModels) {
         MainThreadPoster.post(new Runnable() {
             @Override
             public void run() {
-                mMVCUserListFragment.updateList(data);
+                mMVCUserListFragment.hideLoading();
+                mMVCUserListFragment.updateListView(userModels);
             }
         });
     }

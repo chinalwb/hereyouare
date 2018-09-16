@@ -7,26 +7,31 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chinalwb.hereyouare.MainActivity;
 import com.chinalwb.hereyouare.R;
+import com.chinalwb.hereyouare.common.adapter.UserListAdapter;
 import com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout;
-import com.chinalwb.hereyouare.mvp.model.UserModel;
+import com.chinalwb.hereyouare.common.model.UserModel;
 import com.chinalwb.hereyouare.mvp.presenter.IUserListPresenter;
 import com.chinalwb.hereyouare.mvp.presenter.UserUserListPresenter;
 import com.chinalwb.hereyouare.mvp.view.IUserListView;
 
-public class MVPUserListFragment extends Fragment implements IUserListView {
+import java.util.List;
+
+public class MVPUserListFragment extends Fragment implements IUserListView, MainActivity.FabListener {
 
     private ScrollChildSwipeRefreshLayout mRefreshLayout;
 
-    private TextView mTextView;
-
-    private ProgressBar mProgressBar;
-
     private IUserListPresenter mListPresenter;
+
+    private ListView mUserListView;
+
+    private UserListAdapter mUserListAdapter;
 
     public MVPUserListFragment() {
         super();
@@ -46,12 +51,13 @@ public class MVPUserListFragment extends Fragment implements IUserListView {
     }
 
     private void init(View rootView) {
-        mListPresenter = new UserUserListPresenter(new UserModel(), this);
+        mListPresenter = new UserUserListPresenter(this);
         mRefreshLayout = rootView.findViewById(R.id.refresh_layout);
-        mTextView = rootView.findViewById(R.id.textview_list);
-        mProgressBar = rootView.findViewById(R.id.progress);
+        mUserListView = rootView.findViewById(R.id.user_list_view);
+        mUserListAdapter = new UserListAdapter(null);
+        mUserListView.setAdapter(mUserListAdapter);
 
-        mRefreshLayout.setScrollUpChild(mTextView);
+        mRefreshLayout.setScrollUpChild(mUserListView);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -65,21 +71,25 @@ public class MVPUserListFragment extends Fragment implements IUserListView {
     }
 
     @Override
-    public void updateList(String listData) {
+    public void updateList(List<UserModel> userModels) {
         hideLoading();
-        mTextView.setText(listData);
-        Toast.makeText(getActivity(), "Update UI", Toast.LENGTH_LONG).show();
+        mUserListAdapter.setUserModelList(userModels);
+        mUserListAdapter.notifyDataSetChanged();
+        Toast.makeText(getActivity(), "Update UI from MVP", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showLoading() {
         mRefreshLayout.setRefreshing(true);
-        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
         mRefreshLayout.setRefreshing(false);
-        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onFabClicked() {
+        mListPresenter.addUser();
     }
 }

@@ -34,8 +34,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                if (mFabListener == null) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                } else {
+                    mFabListener.onFabClicked();
+                }
             }
         });
 
@@ -101,11 +105,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mvc) {
-            showFragment(MVCUserListFragment.newInstance());
+            MVCUserListFragment fragment = MVCUserListFragment.newInstance();
+            showFragment(fragment);
+            setFabListener(fragment);
         } else if (id == R.id.nav_mvp) {
-            showFragment(MVPUserListFragment.newInstance());
+            MVPUserListFragment fragment = MVPUserListFragment.newInstance();
+            showFragment(fragment);
+            setFabListener(fragment);
         } else if (id == R.id.nav_mvp2) {
-            showFragment(MVP2UserListFragment.newInstance());
+            MVP2UserListFragment fragment = MVP2UserListFragment.newInstance();
+            showFragment(fragment);
+            setFabListener(fragment);
         } else if (id == R.id.nav_mvvm) {
 
         } else if (id == R.id.nav_component_share) {
@@ -117,5 +127,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private FabListener mFabListener;
+
+    public void setFabListener(FabListener fabListener) {
+        this.mFabListener = fabListener;
+    }
+
+    public interface FabListener {
+        void onFabClicked();
     }
 }

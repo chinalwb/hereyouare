@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/user_pic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="22sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/user_pic"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="Name"
+        />
+
+    <TextView
+        android:id="@+id/user_desc"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_toRightOf="@+id/user_pic"
+        android:layout_below="@+id/user_name"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="Desc"
+        />
+</RelativeLayout>

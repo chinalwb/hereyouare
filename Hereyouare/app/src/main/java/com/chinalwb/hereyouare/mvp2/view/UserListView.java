@@ -5,20 +5,25 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinalwb.hereyouare.R;
+import com.chinalwb.hereyouare.common.adapter.UserListAdapter;
+import com.chinalwb.hereyouare.common.model.UserModel;
 import com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout;
+
+import java.util.List;
 
 public class UserListView implements IUserListView {
 
     private ScrollChildSwipeRefreshLayout mRefreshLayout;
 
-    private TextView mTextView;
+    private ListView mUserListView;
 
-    private ProgressBar mProgressBar;
+    private UserListAdapter mUserListAdapter;
 
     private IListViewHandler mListViewHandler;
 
@@ -35,10 +40,11 @@ public class UserListView implements IUserListView {
 
     protected void init(View rootView) {
         mRefreshLayout = rootView.findViewById(R.id.refresh_layout);
-        mTextView = rootView.findViewById(R.id.textview_list);
-        mProgressBar = rootView.findViewById(R.id.progress);
+        mUserListView = rootView.findViewById(R.id.user_list_view);
+        mUserListAdapter = new UserListAdapter(null);
+        mUserListView.setAdapter(mUserListAdapter);
 
-        mRefreshLayout.setScrollUpChild(mTextView);
+        mRefreshLayout.setScrollUpChild(mUserListView);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -51,22 +57,21 @@ public class UserListView implements IUserListView {
 
 
     @Override
-    public void updateList(String listData) {
+    public void updateList(List<UserModel> userModels) {
         hideLoading();
-        mTextView.setText(listData);
+        mUserListAdapter.setUserModelList(userModels);
+        mUserListAdapter.notifyDataSetChanged();
         Toast.makeText(getContext(), "Update UI", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showLoading() {
         mRefreshLayout.setRefreshing(true);
-        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
         mRefreshLayout.setRefreshing(false);
-        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override

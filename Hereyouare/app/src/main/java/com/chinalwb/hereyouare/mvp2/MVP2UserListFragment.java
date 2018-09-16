@@ -8,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chinalwb.hereyouare.MainActivity;
+import com.chinalwb.hereyouare.common.model.UserModel;
 import com.chinalwb.hereyouare.mvp2.presenter.UserListPresenter;
 import com.chinalwb.hereyouare.mvp2.view.IUserListView;
 import com.chinalwb.hereyouare.mvp2.view.UserListView;
 
-public class MVP2UserListFragment extends Fragment implements IUserListView.IListViewHandler, UserListPresenter.ListUpdaterListener {
+import java.util.List;
+
+public class MVP2UserListFragment extends Fragment implements IUserListView.IListViewHandler,
+        UserListPresenter.ListUpdaterListener, MainActivity.FabListener {
 
     private IUserListView mListView;
 
@@ -60,8 +65,14 @@ public class MVP2UserListFragment extends Fragment implements IUserListView.ILis
     }
 
     @Override
-    public void updateList(String data) {
+    public void updateList(List<UserModel> userModels) {
         mListView.hideLoading();
-        mListView.updateList(data);
+        mListView.updateList(userModels);
+    }
+
+    @Override
+    public void onFabClicked() {
+        mListView.showLoading();
+        mPresenter.addUser();
     }
 }
