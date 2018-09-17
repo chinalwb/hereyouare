@@ -1,2 +1,2 @@
-# hereyouare
-Find out at where you put your treasure
+# Android MVC / MVP / MVVM
+For Android MVC / MVP / MVVM patterns
