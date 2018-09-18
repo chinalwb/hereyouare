@@ -16,18 +16,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chinalwb.hereyouare.IMainPresenter;
 import com.chinalwb.hereyouare.MainActivity;
 import com.chinalwb.hereyouare.R;
 import com.chinalwb.hereyouare.common.adapter.UserListAdapter;
 import com.chinalwb.hereyouare.mvc.controller.UserListController;
 import com.chinalwb.hereyouare.common.model.UserModel;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MVCUserListFragment extends Fragment implements MainActivity.FabListener {
+public class MVCUserListFragment extends Fragment implements IMainPresenter.IFabListener {
 
     private ScrollChildSwipeRefreshLayout mRefreshLayout;
 
@@ -73,12 +76,24 @@ public class MVCUserListFragment extends Fragment implements MainActivity.FabLis
                 mUserListController.loadList();
             }
         });
+
+        View emptyView = rootView.findViewById(R.id.empty_list_layout);
+        TextView emptyTextView = emptyView.findViewById(R.id.empty_list_text_view);
+        String emptyListViewTextString = mUserListController.getEmptyListText();
+        String emptyText = getResources().getString(R.string.empty_text, emptyListViewTextString);
+        emptyTextView.setText(emptyText);
+        mUserListView.setEmptyView(emptyView);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     public void updateListView(List<UserModel> userModels) {
         mUserListAdapter.setUserModelList(userModels);
         mUserListAdapter.notifyDataSetChanged();
-        Toast.makeText(getActivity(), "Update UI from MVC" + userModels.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Update UI from MVC " + userModels.size(), Toast.LENGTH_LONG).show();
     }
 
     public void showLoading() {
@@ -88,7 +103,6 @@ public class MVCUserListFragment extends Fragment implements MainActivity.FabLis
     public void hideLoading() {
         mRefreshLayout.setRefreshing(false);
     }
-
 
     @Override
     public void onFabClicked() {

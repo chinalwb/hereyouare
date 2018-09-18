@@ -1,5 +1,9 @@
 package com.chinalwb.hereyouare.mvc.controller;
 
+import android.view.View;
+import android.widget.TextView;
+
+import com.chinalwb.hereyouare.R;
 import com.chinalwb.hereyouare.common.BackgroundThreadPoster;
 import com.chinalwb.hereyouare.common.MainThreadPoster;
 import com.chinalwb.hereyouare.common.dataManager.UserManager;
@@ -16,6 +20,10 @@ public class UserListController {
 
     public UserListController(MVCUserListFragment MVCUserListFragment) {
         mMVCUserListFragment = MVCUserListFragment;
+    }
+
+    public String getEmptyListText() {
+        return "MVC模式，默认没有数据，尝试下拉刷新吧！";
     }
 
     public void loadList() {

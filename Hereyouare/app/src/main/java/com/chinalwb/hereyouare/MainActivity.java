@@ -14,18 +14,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.chinalwb.hereyouare.mvc.MVCUserListFragment;
 import com.chinalwb.hereyouare.mvp.MVPUserListFragment;
 import com.chinalwb.hereyouare.mvp2.MVP2UserListFragment;
+import com.chinalwb.hereyouare.mvvvm.MVVMListFragment;
+import com.chinalwb.hereyouare.nomvx.NoMVXUserListFragment;
 import com.chinalwb.hereyouare.util.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, IMainView {
+
+    private IMainPresenter mMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMainPresenter = new MainPresenter(this);
         setContentView(getLayoutId());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,12 +40,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFabListener == null) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                } else {
-                    mFabListener.onFabClicked();
-                }
+                mMainPresenter.onFabClicked(view);
             }
         });
 
@@ -52,14 +53,23 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        showFragment(MainFragment.newInstance());
-//        showFragment(MVCUserListFragment.newInstance());
-//        showFragment(MVPUserListFragment.newInstance());
+        mMainPresenter.initView();
     }
 
-    private void showFragment(Fragment fragment) {
+    @Override
+    public void setTitle(String title) {
+        super.setTitle(title);
+    }
+
+    @Override
+    public void showFragment(Fragment fragment) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         ActivityUtils.addFragmentToActivity(fragmentManager, fragment, R.id.contentFrame);
+    }
+
+    @Override
+    public void toast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     private int getLayoutId() {
@@ -104,38 +114,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_mvc) {
-            MVCUserListFragment fragment = MVCUserListFragment.newInstance();
-            showFragment(fragment);
-            setFabListener(fragment);
-        } else if (id == R.id.nav_mvp) {
-            MVPUserListFragment fragment = MVPUserListFragment.newInstance();
-            showFragment(fragment);
-            setFabListener(fragment);
-        } else if (id == R.id.nav_mvp2) {
-            MVP2UserListFragment fragment = MVP2UserListFragment.newInstance();
-            showFragment(fragment);
-            setFabListener(fragment);
-        } else if (id == R.id.nav_mvvm) {
-
-        } else if (id == R.id.nav_component_share) {
-
-        } else if (id == R.id.nav_component_send) {
-
-        }
+        boolean handled = mMainPresenter.onNavigationItemSelected(id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return handled;
     }
 
-    private FabListener mFabListener;
 
-    public void setFabListener(FabListener fabListener) {
-        this.mFabListener = fabListener;
-    }
-
-    public interface FabListener {
-        void onFabClicked();
-    }
 }

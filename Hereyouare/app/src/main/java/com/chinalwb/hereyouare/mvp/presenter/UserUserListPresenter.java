@@ -20,6 +20,11 @@ public class UserUserListPresenter implements IUserListPresenter {
     }
 
     @Override
+    public String getEmptyListText() {
+        return "MVP - NO DATA FOR NOW! ";
+    }
+
+    @Override
     public void loadList() {
         mListView.showLoading();
         BackgroundThreadPoster.post(new Runnable() {

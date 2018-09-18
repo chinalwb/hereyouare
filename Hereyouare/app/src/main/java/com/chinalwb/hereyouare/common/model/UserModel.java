@@ -14,4 +14,28 @@ public class UserModel {
         this.userName = userName;
         this.userDesc = userDesc;
     }
+
+    public int getPicId() {
+        return picId;
+    }
+
+    public void setPicId(int picId) {
+        this.picId = picId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserDesc() {
+        return userDesc;
+    }
+
+    public void setUserDesc(String userDesc) {
+        this.userDesc = userDesc;
+    }
 }

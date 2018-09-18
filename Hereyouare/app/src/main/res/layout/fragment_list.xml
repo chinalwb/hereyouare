@@ -12,9 +12,12 @@
         <ListView
             android:id="@+id/user_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
         </ListView>
+
+        <include android:id="@+id/empty_list_layout" layout="@layout/empty_list" />
 
     </RelativeLayout>
 </com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout>

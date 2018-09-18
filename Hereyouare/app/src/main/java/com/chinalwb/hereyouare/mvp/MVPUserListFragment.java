@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chinalwb.hereyouare.IMainPresenter;
 import com.chinalwb.hereyouare.MainActivity;
 import com.chinalwb.hereyouare.R;
 import com.chinalwb.hereyouare.common.adapter.UserListAdapter;
@@ -23,7 +24,7 @@ import com.chinalwb.hereyouare.mvp.view.IUserListView;
 
 import java.util.List;
 
-public class MVPUserListFragment extends Fragment implements IUserListView, MainActivity.FabListener {
+public class MVPUserListFragment extends Fragment implements IUserListView, IMainPresenter.IFabListener {
 
     private ScrollChildSwipeRefreshLayout mRefreshLayout;
 
@@ -64,6 +65,13 @@ public class MVPUserListFragment extends Fragment implements IUserListView, Main
                 mListPresenter.loadList();
             }
         });
+
+        View emptyView = rootView.findViewById(R.id.empty_list_layout);
+        TextView emptyTextView = emptyView.findViewById(R.id.empty_list_text_view);
+        String emptyListViewTextString = mListPresenter.getEmptyListText();
+        String emptyText = getResources().getString(R.string.empty_text, emptyListViewTextString);
+        emptyTextView.setText(emptyText);
+        mUserListView.setEmptyView(emptyView);
     }
 
     private View getFragmentView(LayoutInflater inflater, @Nullable ViewGroup container) {

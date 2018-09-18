@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_no_mvx"
+            android:icon="@drawable/ic_menu_lock"
+            android:title="No MVX" />
+        <item
             android:id="@+id/nav_mvc"
             android:icon="@drawable/ic_menu_camera"
             android:title="MVC" />

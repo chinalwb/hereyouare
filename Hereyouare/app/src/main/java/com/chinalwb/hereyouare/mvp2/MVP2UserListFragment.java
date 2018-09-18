@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chinalwb.hereyouare.IMainPresenter;
 import com.chinalwb.hereyouare.MainActivity;
 import com.chinalwb.hereyouare.common.model.UserModel;
 import com.chinalwb.hereyouare.mvp2.presenter.UserListPresenter;
@@ -17,7 +18,7 @@ import com.chinalwb.hereyouare.mvp2.view.UserListView;
 import java.util.List;
 
 public class MVP2UserListFragment extends Fragment implements IUserListView.IListViewHandler,
-        UserListPresenter.ListUpdaterListener, MainActivity.FabListener {
+        UserListPresenter.ListUpdaterListener, IMainPresenter.IFabListener {
 
     private IUserListView mListView;
 

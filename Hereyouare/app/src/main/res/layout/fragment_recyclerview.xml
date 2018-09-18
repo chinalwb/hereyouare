@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
+    <data>
+        <variable
+            name="userListViewModel"
+            type="com.chinalwb.hereyouare.mvvvm.viewModel.UserListViewModel" />
+    </data>
+
+    <com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:onRefreshListener="@{userListViewModel.onRefreshListener}"
+        bind:userModels="@{userListViewModel.userModels}"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:scrollbars="none" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/user_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="none" />
+
+    </com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout>
+</layout>
+
+<!--<com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/refresh_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/user_recycler_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:scrollbars="none" />-->
+
+<!--</com.chinalwb.hereyouare.mvc.ScrollChildSwipeRefreshLayout>-->

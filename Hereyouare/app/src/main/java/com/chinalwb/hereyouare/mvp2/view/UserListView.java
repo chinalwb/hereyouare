@@ -27,10 +27,17 @@ public class UserListView implements IUserListView {
 
     private IListViewHandler mListViewHandler;
 
+    private View mEmptyView;
+
+    private TextView mEmptyTextView;
+
     private View mRootView;
+
+    private Context mContext;
 
     public UserListView(LayoutInflater layoutInflater, ViewGroup container) {
         mRootView = layoutInflater.inflate(getLayoutId(), container, false);
+        mContext = mRootView.getContext();
         init(mRootView);
     }
 
@@ -53,6 +60,14 @@ public class UserListView implements IUserListView {
                 }
             }
         });
+
+        mEmptyView = rootView.findViewById(R.id.empty_list_layout);
+        mEmptyTextView = mEmptyView.findViewById(R.id.empty_list_text_view);
+        // TODO
+//        String emptyListViewTextString = mEmptyTextView.getEmptyListText();
+//        String emptyText = getResources().getString(R.string.empty_text, emptyListViewTextString);
+//        mEmptyTextView.setText(emptyText);
+//        mUserListView.setEmptyView(emptyView);
     }
 
 
