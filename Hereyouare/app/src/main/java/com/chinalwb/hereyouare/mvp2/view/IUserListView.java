@@ -18,4 +18,6 @@ public interface IUserListView extends IBaseView {
     void hideLoading();
 
     void setViewHandler(IListViewHandler handler);
+
+    void setEmptyListText(String emptyListViewTextString);
 }

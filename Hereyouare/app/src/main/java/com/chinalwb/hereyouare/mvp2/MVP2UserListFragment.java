@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.chinalwb.hereyouare.IMainPresenter;
 import com.chinalwb.hereyouare.MainActivity;
 import com.chinalwb.hereyouare.common.model.UserModel;
+import com.chinalwb.hereyouare.mvp2.presenter.IUserListPresenter;
 import com.chinalwb.hereyouare.mvp2.presenter.UserListPresenter;
 import com.chinalwb.hereyouare.mvp2.view.IUserListView;
 import com.chinalwb.hereyouare.mvp2.view.UserListView;
@@ -22,7 +23,7 @@ public class MVP2UserListFragment extends Fragment implements IUserListView.ILis
 
     private IUserListView mListView;
 
-    UserListPresenter mPresenter;
+    IUserListPresenter mPresenter;
 
     public MVP2UserListFragment() {
         super();
@@ -44,6 +45,7 @@ public class MVP2UserListFragment extends Fragment implements IUserListView.ILis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mListView = new UserListView(inflater, container);
         mListView.setViewHandler(this);
+        mListView.setEmptyListText(mPresenter.getEmptyListText());
         return mListView.getRootView();
     }
 

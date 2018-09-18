@@ -63,11 +63,6 @@ public class UserListView implements IUserListView {
 
         mEmptyView = rootView.findViewById(R.id.empty_list_layout);
         mEmptyTextView = mEmptyView.findViewById(R.id.empty_list_text_view);
-        // TODO
-//        String emptyListViewTextString = mEmptyTextView.getEmptyListText();
-//        String emptyText = getResources().getString(R.string.empty_text, emptyListViewTextString);
-//        mEmptyTextView.setText(emptyText);
-//        mUserListView.setEmptyView(emptyView);
     }
 
 
@@ -92,6 +87,13 @@ public class UserListView implements IUserListView {
     @Override
     public void setViewHandler(IListViewHandler handler) {
         mListViewHandler = handler;
+    }
+
+    @Override
+    public void setEmptyListText(String emptyListViewTextString) {
+        String emptyText = mContext.getResources().getString(R.string.empty_text, emptyListViewTextString);
+        mEmptyTextView.setText(emptyText);
+        mUserListView.setEmptyView(mEmptyView);
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.chinalwb.hereyouare.mvp2.BasePresenter;
 
 import java.util.List;
 
-public class UserListPresenter extends BasePresenter<UserListPresenter.ListUpdaterListener> {
+public class UserListPresenter extends BasePresenter<UserListPresenter.ListUpdaterListener> implements IUserListPresenter<UserListPresenter.ListUpdaterListener> {
 
     private List<UserModel> mUserModels;
 
@@ -34,6 +34,11 @@ public class UserListPresenter extends BasePresenter<UserListPresenter.ListUpdat
                 updateUI(mUserModels);
             }
         });
+    }
+
+    @Override
+    public String getEmptyListText() {
+        return "MVP2 :: ";
     }
 
     private void updateUI(final List<UserModel> userModels) {
