@@ -8,8 +8,11 @@ For Android MVC / MVP / MVVM patterns
 本来不懂标题说的这些东西（以及MVVM），看了这些文章之后
 
 https://www.techyourchance.com/mvp-mvc-android-1/
+
 https://academy.realm.io/posts/eric-maxwell-mvc-mvp-and-mvvm-on-android/
+
 https://github.com/florina-muntenescu/MVPvsMVVM
+
 http://tangpj.com/2016/12/04/mvvm-structure-introduction/#comments
 
 可能还有一些其他资料没能一一列出，然后感觉大部分说的写的都是很深奥很神秘。然后我自己有点想法，不过：
