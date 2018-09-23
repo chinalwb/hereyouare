@@ -14,7 +14,7 @@ public class UserManager {
     public static List<UserModel> callAPIToGetUserList() {
         List<UserModel> list = new ArrayList<>();
         try {
-            Thread.sleep(2000);
+//            Thread.sleep(2000);
 
             int[] picIds = {
                     R.drawable.at_1,
@@ -56,7 +56,7 @@ public class UserManager {
                 UserModel userModel = new UserModel(picIds[i], userNames[i], userDescs[i]);
                 list.add(userModel);
             }
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -5,6 +5,8 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.android.databinding.library.baseAdapters.BR;
+
 /**
  * Created by wliu on 17/09/2018.
  */
@@ -13,12 +15,13 @@ public class UserModelViewHolder extends RecyclerView.ViewHolder {
 
     private ViewDataBinding bindings;
 
-    public UserModelViewHolder(View itemView) {
-        super(itemView);
-        bindings = DataBindingUtil.bind(itemView);
+    public UserModelViewHolder(ViewDataBinding bindings) {
+        super(bindings.getRoot());
+        this.bindings = bindings;
     }
 
-    public ViewDataBinding getBindings() {
-        return bindings;
+    public void bind(Object obj) {
+        bindings.setVariable(BR.userModel,obj);
+        bindings.executePendingBindings();
     }
 }

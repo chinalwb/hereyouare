@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.chinalwb.hereyouare.mvc.MVCUserListFragment;
 import com.chinalwb.hereyouare.mvp.MVPUserListFragment;
 import com.chinalwb.hereyouare.mvp2.MVP2UserListFragment;
+import com.chinalwb.hereyouare.mvvvm.MVVMListFragment;
 import com.chinalwb.hereyouare.nomvx.NoMVXUserListFragment;
 
 /**
@@ -63,7 +64,10 @@ public class MainPresenter implements IMainPresenter {
             setFabListener(fragment);
             mMainView.setTitle("MVP2");
         } else if (id == R.id.nav_mvvm) {
-            mMainView.toast("尚未完成，待续。");
+            MVVMListFragment fragment = MVVMListFragment.newInstance();
+            mMainView.showFragment(fragment);
+            setFabListener(fragment);
+            mMainView.setTitle("MVVM");
         } else if (id == R.id.nav_component_share) {
             mMainView.toast("尚未完成，待续。");
         } else if (id == R.id.nav_component_send) {

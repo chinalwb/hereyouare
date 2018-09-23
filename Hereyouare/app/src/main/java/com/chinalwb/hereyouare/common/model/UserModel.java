@@ -1,9 +1,12 @@
 package com.chinalwb.hereyouare.common.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 /**
  *
  */
-public class UserModel {
+public class UserModel extends BaseObservable {
 
     private int picId;
     private String userName;
@@ -15,6 +18,7 @@ public class UserModel {
         this.userDesc = userDesc;
     }
 
+    @Bindable
     public int getPicId() {
         return picId;
     }
@@ -23,6 +27,7 @@ public class UserModel {
         this.picId = picId;
     }
 
+    @Bindable
     public String getUserName() {
         return userName;
     }
@@ -31,6 +36,7 @@ public class UserModel {
         this.userName = userName;
     }
 
+    @Bindable
     public String getUserDesc() {
         return userDesc;
     }

@@ -85,9 +85,9 @@ public class UserListAdapter extends BaseAdapter {
         }
 
         UserModel userModel = getItem(position);
-        viewHolder.picImageView.setImageResource(userModel.picId);
-        viewHolder.nameTextView.setText(userModel.userName);
-        viewHolder.descTextView.setText(userModel.userDesc);
+        viewHolder.picImageView.setImageResource(userModel.getPicId());
+        viewHolder.nameTextView.setText(userModel.getUserName());
+        viewHolder.descTextView.setText(userModel.getUserDesc());
 
         return convertView;
     }
